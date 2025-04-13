@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Text Analyzer</title>
+  <style>
+    /* Reset & Base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      color: #333;
+      min-height: 100vh;
+      padding: 0 1em;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 2em 1em;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1s ease-out;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+    }
+
+    header p {
+      font-size: 1.1rem;
+      margin-top: 0.5em;
+    }
+
+    section {
+      max-width: 1000px;
+      margin: 2em auto;
+      background: white;
+      padding: 2em;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      padding: 1em;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      transition: box-shadow 0.3s ease;
+    }
+
+    textarea:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 119, 182, 0.3);
+    }
+
+    button {
+      background-color: #00b4d8;
+      color: white;
+      border: none;
+      padding: 0.8em 2em;
+      margin-top: 1em;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0096c7;
+    }
+
+    h3 {
+      margin-top: 2em;
+      color: #0077b6;
+    }
+
+    ul {
+      padding-left: 1.2em;
+      margin-top: 0.5em;
+      line-height: 1.6;
+      list-style-type: disc;
+    }
+
+    #analysisResults {
+      animation: fadeIn 0.7s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      textarea {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>✨ Text Analyzer</h1>
+    <p>Analyze your large text input in style — real-time stats, categorized word counts, and more!</p>
+  </header>
+
+  <section>
+    <h2>Paste Your Text Below</h2>
+    <textarea id="largeText" placeholder="Paste your large text (10,000+ words) here..."></textarea>
+    <button onclick="analyzeText()">Analyze Text</button>
+
+    <div id="analysisResults"></div>
+  </section>
+
+  <script>
+    function analyzeText() {
+      const text = document.getElementById("largeText").value;
+      const resultDiv = document.getElementById("analysisResults");
+
+      // Basic character stats
+      const letters = (text.match(/[a-zA-Z]/g) || []).length;
+      const words = (text.match(/\b\w+\b/g) || []).length;
+      const spaces = (text.match(/ /g) || []).length;
+      const newlines = (text.match(/\n/g) || []).length;
+      const specialSymbols = (text.match(/[^\w\s]/g) || []).length;
+
+      // Tokenize text
+      const tokens = text.toLowerCase().match(/\b\w+\b/g) || [];
+
+      // Define word groups
+      const pronouns = ['i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'its', 'our', 'their'];
+      const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'of', 'off', 'over', 'under'];
+      const articles = ['a', 'an'];
+
+      // Count function
+      const countGroup = (group) => {
+        const count = {};
+        group.forEach(word => {
+          count[word] = tokens.filter(token => token === word).length;
+        });
+        return count;
+      };
+
+      const pronounCounts = countGroup(pronouns);
+      const prepositionCounts = countGroup(prepositions);
+      const articleCounts = countGroup(articles);
+
+      // Display Results
+      resultDiv.innerHTML = `
+        <h3>📊 Basic Text Stats</h3>
+        <ul>
+          <li><strong>Letters:</strong> ${letters}</li>
+          <li><strong>Words:</strong> ${words}</li>
+          <li><strong>Spaces:</strong> ${spaces}</li>
+          <li><strong>Newlines:</strong> ${newlines}</li>
+          <li><strong>Special Symbols:</strong> ${specialSymbols}</li>
+        </ul>
+
+        <h3>🧍 Pronoun Counts</h3>
+        <ul>${Object.entries(pronounCounts).map(([k, v]) => `<li><strong>${k}</strong>: ${v}</li>`).join('')}</ul>
+
+        <h3>🧭 Preposition Counts</h3>
+        <ul>${Object.entries(prepositionCounts).map(([k, v]) => `<li><strong>${k}</strong>: ${v}</li>`).join('')}</ul>
+
+        <h3>📚 Indefinite Article Counts</h3>
+        <ul>${Object.entries(articleCounts).map(([k, v]) => `<li><strong>${k}</strong>: ${v}</li>`).join('')}</ul>
+      `;
+    }
+  </script>
+
+</body>
+</html>
