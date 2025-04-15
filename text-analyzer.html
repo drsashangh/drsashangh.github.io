@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Text Analyzer</title>
   <style>
-    /* Reset & Base */
     * {
       margin: 0;
       padding: 0;
@@ -151,22 +150,18 @@
       const text = document.getElementById("largeText").value;
       const resultDiv = document.getElementById("analysisResults");
 
-      // Basic character stats
       const letters = (text.match(/[a-zA-Z]/g) || []).length;
       const words = (text.match(/\b\w+\b/g) || []).length;
       const spaces = (text.match(/ /g) || []).length;
       const newlines = (text.match(/\n/g) || []).length;
       const specialSymbols = (text.match(/[^\w\s]/g) || []).length;
 
-      // Tokenize text
       const tokens = text.toLowerCase().match(/\b\w+\b/g) || [];
 
-      // Define word groups
       const pronouns = ['i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them', 'my', 'your', 'his', 'its', 'our', 'their'];
       const prepositions = ['in', 'on', 'at', 'by', 'for', 'with', 'about', 'against', 'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 'from', 'up', 'down', 'of', 'off', 'over', 'under'];
       const articles = ['a', 'an'];
 
-      // Count function
       const countGroup = (group) => {
         const count = {};
         group.forEach(word => {
@@ -179,7 +174,6 @@
       const prepositionCounts = countGroup(prepositions);
       const articleCounts = countGroup(articles);
 
-      // Display Results
       resultDiv.innerHTML = `
         <h3>📊 Basic Text Stats</h3>
         <ul>
