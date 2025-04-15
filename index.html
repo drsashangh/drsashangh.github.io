@@ -256,7 +256,7 @@
 </head>
 <body>
 
-  <!-- Navigation -->
+  <!--Navigation-->
   <nav>
     <ul>
       <li><a href="#hero">Home</a></li>
@@ -265,17 +265,18 @@
       <li><a href="#education">Education</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#cv">CV</a></li>
+      <li><a href="#text_analyser">Text Analyser</a></li>
     </ul>
   </nav>
 
-  <!-- Hero Section -->
+  <!--Hero Section-->
   <section class="hero" id="hero">
     <h1>Hello, I'm <span style="color:#4fc3f7;">Sashangh D R</span></h1>
     <p>B.Tech CSE @ IIITH | Tech Enthusiast | Creative Coder</p>
     <a href="#about" class="cta">Explore More</a>
   </section>
 
-  <!-- About Section -->
+  <!--About Section-->
   <section id="about" class="about">
     <h2>About Me</h2>
     <img src="profile.jpg" alt="Profile Picture" />
@@ -286,7 +287,7 @@
     I believe in continuous growth both as an engineer striving for technical excellence and as a human being committed to meaningful contributions.</p>
   </section>
 
-  <!-- Hometown Section -->
+  <!--Hometown Section-->
   <section id="hometown">
     <h2>My Hometown</h2>
     <p style="text-align: center; max-width: 800px; margin: 0 auto 2em;">I come from a vibrant town full of tradition and life. The streets are colorful, the food is delicious, and the community is warm and welcoming. Nagercoil, meaning "Temple of Nagas," is a city in the Kanyakumari district of Tamil Nadu, India, serving as the district's administrative headquarters. It's situated near the tip of the Indian peninsula, close to the Western Ghats. The town's name is derived from the Nagaraja temple, dedicated to the King of Snakes.</p>
@@ -296,7 +297,7 @@
     </div>
   </section>
 
-  <!-- Education Section -->
+  <!--Education Section-->
   <section id="education" class="education">
     <h2>Education</h2>
     <ul>
@@ -306,7 +307,7 @@
     </ul>
   </section>
 
-  <!-- Skills Section -->
+  <!--Skills Section-->
   <section id="skills" class="skills">
     <h2>Technical Skills</h2>
     <ul>
@@ -317,14 +318,20 @@
     </ul>
   </section>
 
-  <!-- CV Section -->
+  <!--CV Section-->
   <section id="cv">
     <h2>My CV</h2>
     <p class="cv-text">Download my CV below to learn more about my qualifications and experience:</p>
     <p style="text-align: center;"><a href="cv.pdf" target="_blank" class="cta">📄 View CV (PDF)</a></p>
+</section>
+
+    <!--Text Analyser section-->
+<section id="text_analyser">
+    <h2>Text Analyser</h2>
+    <p style="text-align: center;"><a href="text-analyzer.html" target="_blank" class="cta">Text Analyser</a></p>
   </section>
 
-  <!-- Connect With Me Section -->
+  <!--Connect With Me-->
   <section id="contact" style="padding: 5em 1em; text-align: center;">
     <h2 style="color: #1a4b8c; font-size: 2.5rem; margin-bottom: 1.5em; position: relative;">Connect With Me</h2>
     <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 3em;">
@@ -348,12 +355,12 @@
     </div>
   </section>
 
-  <!-- Footer -->
+  <!--Footer-->
   <footer>
     <p>&copy; 2025 Sashangh D R. All Rights Reserved.</p>
   </footer>
   <script>
-    // Function to log events with the timestamp, type, and event object
+
     function logEvent(eventType, element) {
       const timestamp = new Date().toISOString();
       let elementType = element.tagName.toLowerCase();
@@ -371,12 +378,10 @@
       console.log(`${timestamp} , ${eventType} , ${elementType}`);
     }
   
-    // Track page views (when the DOM is fully loaded)
     document.addEventListener("DOMContentLoaded", () => {
       logEvent("view", document.body);
     });
   
-    // Track click events across the page
     document.addEventListener("click", (e) => {
       logEvent("click", e.target);
     });
